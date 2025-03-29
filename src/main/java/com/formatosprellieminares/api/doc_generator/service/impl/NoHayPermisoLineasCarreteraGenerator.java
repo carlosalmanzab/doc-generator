@@ -71,7 +71,13 @@ public class NoHayPermisoLineasCarreteraGenerator implements DocumentoGenerator 
                                 .replace("${fromPhone}",
                                         noHayPermiso.getFromPhone() != null ? noHayPermiso.getFromPhone() : "")
                                 .replace("${fromEmail}",
-                                        noHayPermiso.getFromEmail() != null ? noHayPermiso.getFromEmail() : "");
+                                        noHayPermiso.getFromEmail() != null ? noHayPermiso.getFromEmail() : "")
+                                .replace("${fromName2}",
+                                        noHayPermiso.getFromName() != null ? noHayPermiso.getFromName() : "")
+                                .replace("${fromIdentification2}",
+                                        noHayPermiso.getFromIdentification() != null
+                                                ? noHayPermiso.getFromIdentification()
+                                                : "");
 
                         if (!originalText.equals(text)) {
                             logger.debug("Reemplazos realizados en párrafo:");
@@ -134,6 +140,13 @@ public class NoHayPermisoLineasCarreteraGenerator implements DocumentoGenerator 
                                                             : "")
                                             .replace("${fromEmail}",
                                                     noHayPermiso.getFromEmail() != null ? noHayPermiso.getFromEmail()
+                                                            : "")
+                                            .replace("${fromName2}",
+                                                    noHayPermiso.getFromName() != null ? noHayPermiso.getFromName()
+                                                            : "")
+                                            .replace("${fromIdentification2}",
+                                                    noHayPermiso.getFromIdentification() != null
+                                                            ? noHayPermiso.getFromIdentification()
                                                             : "");
 
                                     if (!originalText.equals(text)) {

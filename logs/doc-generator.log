@@ -3812,3 +3812,58 @@ java.lang.RuntimeException: No se pudo encontrar el archivo de plantilla
 2025-03-29 17:06:49 [http-nio-8080-exec-2] INFO  c.f.a.d.s.i.AutorizacionConexionGenerator - Documento generado exitosamente
 2025-03-29 17:06:49 [http-nio-8080-exec-2] INFO  c.f.a.d.s.impl.DocumentoServiceImpl - Documento generado exitosamente
 2025-03-29 17:06:49 [http-nio-8080-exec-2] DEBUG c.f.a.d.c.DocumentoController - Autorización de conexión generada exitosamente
+2025-03-29 17:11:59 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-03-29 17:11:59 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-03-29 17:12:03 [restartedMain] INFO  c.f.a.d.DocGeneratorApplication - Starting DocGeneratorApplication using Java 17 with PID 86423 (/home/carlos/repositories/doc-generator/build/classes/java/main started by carlos in /home/carlos/repositories/doc-generator)
+2025-03-29 17:12:03 [restartedMain] DEBUG c.f.a.d.DocGeneratorApplication - Running with Spring Boot v3.4.4, Spring v6.2.5
+2025-03-29 17:12:03 [restartedMain] INFO  c.f.a.d.DocGeneratorApplication - No active profile set, falling back to 1 default profile: "default"
+2025-03-29 17:12:03 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-03-29 17:12:03 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-03-29 17:12:03 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-03-29 17:12:03 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-03-29 17:12:03 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.39]
+2025-03-29 17:12:03 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-03-29 17:12:03 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 732 ms
+2025-03-29 17:12:03 [restartedMain] INFO  c.f.a.d.s.impl.DocumentoServiceImpl - Generadores de documentos inicializados
+2025-03-29 17:12:04 [restartedMain] INFO  o.s.v.b.OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+2025-03-29 17:12:04 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-03-29 17:12:04 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-03-29 17:12:04 [restartedMain] INFO  c.f.a.d.DocGeneratorApplication - Started DocGeneratorApplication in 1.433 seconds (process running for 1.86)
+2025-03-29 17:12:07 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-29 17:12:07 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-03-29 17:12:07 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-03-29 17:12:07 [http-nio-8080-exec-1] INFO  c.f.a.d.c.DocumentoController - Iniciando generación de documento no hay permiso líneas carretera
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.c.DocumentoController - Request recibido: DocumentoRequest(tipoDocumento=NO_HAY_PERMISO_LINEAS_CARRETERA, datos=NoHayPermisisosLineasCarreteras(fromAddress=Calle 123 #45-67, date=2024-03-29, fromName=Juan Pérez, fromIdentification=123456789, fromLocation=Neiva, fromPhone=3001234567, fromEmail=juan.perez@email.com))
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.c.DocumentoController - Tipo de documento establecido: NO_HAY_PERMISO_LINEAS_CARRETERA
+2025-03-29 17:12:07 [http-nio-8080-exec-1] INFO  c.f.a.d.s.impl.DocumentoServiceImpl - Iniciando generación de documento individual
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.impl.DocumentoServiceImpl - Request recibido en servicio: DocumentoRequest(tipoDocumento=NO_HAY_PERMISO_LINEAS_CARRETERA, datos=NoHayPermisisosLineasCarreteras(fromAddress=Calle 123 #45-67, date=2024-03-29, fromName=Juan Pérez, fromIdentification=123456789, fromLocation=Neiva, fromPhone=3001234567, fromEmail=juan.perez@email.com))
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.impl.DocumentoServiceImpl - Tipo de documento en request: NO_HAY_PERMISO_LINEAS_CARRETERA
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.impl.DocumentoServiceImpl - Generadores disponibles: [NO_HAY_PERMISO_LINEAS_CARRETERA, AUTORIZACION_CONEXION, AUTORIZACION_TRAMITES, SOLICITUD_CODIGOS_SPARD]
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.impl.DocumentoServiceImpl - Generando documento con el generador: NoHayPermisoLineasCarreteraGenerator
+2025-03-29 17:12:07 [http-nio-8080-exec-1] INFO  c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Iniciando generación de documento NoHayPermisoLineasCarretera
+2025-03-29 17:12:07 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Datos convertidos: NoHayPermisisosLineasCarreteras(fromAddress=Calle 123 #45-67, date=2024-03-29, fromName=Juan Pérez, fromIdentification=123456789, fromLocation=Neiva, fromPhone=3001234567, fromEmail=juan.perez@email.com)
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Plantilla cargada correctamente
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: ${fromAddress}, ${date}.
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Reemplazos realizados en párrafo:
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Original: ${fromAddress}, ${date}.
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Modificado: Calle 123 #45-67, 2024-03-29.
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: Señores
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: ELECTRIFICADORA DEL HUILA. S.A E.S.P.
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: Cordial Saludo
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: Por medio de la presente me permito comunicarles que las líneas se encuentran en zona franja de la carretera por lo cual no es necesaria alguna cedula para los permisos de servidumbre.
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: Sin otro particular,
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: ${fromName}
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Reemplazos realizados en párrafo:
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Original: ${fromName}
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Modificado: Juan Pérez
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: CC. ${fromIdentification}
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Reemplazos realizados en párrafo:
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Original: CC. ${fromIdentification}
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Modificado: CC. 123456789
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Texto completo del párrafo: TEL: ${fromPhone}
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Reemplazos realizados en párrafo:
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Original: TEL: ${fromPhone}
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Modificado: TEL: 3001234567
+2025-03-29 17:12:08 [http-nio-8080-exec-1] INFO  c.f.a.d.s.i.NoHayPermisoLineasCarreteraGenerator - Documento generado exitosamente
+2025-03-29 17:12:08 [http-nio-8080-exec-1] INFO  c.f.a.d.s.impl.DocumentoServiceImpl - Documento generado exitosamente
+2025-03-29 17:12:08 [http-nio-8080-exec-1] DEBUG c.f.a.d.c.DocumentoController - Documento no hay permiso líneas carretera generado exitosamente
