@@ -56,19 +56,32 @@ public class SolicitudCodigosSPARDGenerator implements DocumentoGenerator {
 
                     if (text.contains("${")) {
                         text = text
-                                .replace("${fromAddress}", solicitud.getFromAddress())
-                                .replace("${date}", solicitud.getDate())
-                                .replace("${fromName}", solicitud.getFromName())
-                                .replace("${fromIdentification}", solicitud.getFromIdentification())
-                                .replace("${projectLocation}", solicitud.getProjectLocation())
-                                .replace("${projectAddress}", solicitud.getProjectAddress())
-                                .replace("${userName}", solicitud.getUserName())
-                                .replace("${userIdentification}", solicitud.getUserIdentification())
-                                .replace("${userLocation}", solicitud.getUserLocation())
-                                .replace("${fromName2}", solicitud.getFromName2())
-                                .replace("${fromIdentification2}", solicitud.getFromIdentification2())
-                                .replace("${fromPhone}", solicitud.getFromPhone())
-                                .replace("${fromEmail}", solicitud.getFromEmail());
+                                .replace("${fromAddress}",
+                                        solicitud.getFromAddress() != null ? solicitud.getFromAddress() : "")
+                                .replace("${date}", solicitud.getDate() != null ? solicitud.getDate() : "")
+                                .replace("${fromName}", solicitud.getFromName() != null ? solicitud.getFromName() : "")
+                                .replace("${fromIdentification}",
+                                        solicitud.getFromIdentification() != null ? solicitud.getFromIdentification()
+                                                : "")
+                                .replace("${projectLocation}",
+                                        solicitud.getProjectLocation() != null ? solicitud.getProjectLocation() : "")
+                                .replace("${projectAddress}",
+                                        solicitud.getProjectAddress() != null ? solicitud.getProjectAddress() : "")
+                                .replace("${userName}", solicitud.getUserName() != null ? solicitud.getUserName() : "")
+                                .replace("${userIdentification}",
+                                        solicitud.getUserIdentification() != null ? solicitud.getUserIdentification()
+                                                : "")
+                                .replace("${userLocation}",
+                                        solicitud.getUserLocation() != null ? solicitud.getUserLocation() : "")
+                                .replace("${fromName2}",
+                                        solicitud.getFromName2() != null ? solicitud.getFromName2() : "")
+                                .replace("${fromIdentification2}",
+                                        solicitud.getFromIdentification2() != null ? solicitud.getFromIdentification2()
+                                                : "")
+                                .replace("${fromPhone}",
+                                        solicitud.getFromPhone() != null ? solicitud.getFromPhone() : "")
+                                .replace("${fromEmail}",
+                                        solicitud.getFromEmail() != null ? solicitud.getFromEmail() : "");
 
                         // Limpiar todos los runs existentes
                         for (int i = runs.size() - 1; i >= 0; i--) {
@@ -102,19 +115,43 @@ public class SolicitudCodigosSPARDGenerator implements DocumentoGenerator {
 
                                 if (text.contains("${")) {
                                     text = text
-                                            .replace("${fromAddress}", solicitud.getFromAddress())
-                                            .replace("${date}", solicitud.getDate())
-                                            .replace("${fromName}", solicitud.getFromName())
-                                            .replace("${fromIdentification}", solicitud.getFromIdentification())
-                                            .replace("${projectLocation}", solicitud.getProjectLocation())
-                                            .replace("${projectAddress}", solicitud.getProjectAddress())
-                                            .replace("${userName}", solicitud.getUserName())
-                                            .replace("${userIdentification}", solicitud.getUserIdentification())
-                                            .replace("${userLocation}", solicitud.getUserLocation())
-                                            .replace("${fromName2}", solicitud.getFromName2())
-                                            .replace("${fromIdentification2}", solicitud.getFromIdentification2())
-                                            .replace("${fromPhone}", solicitud.getFromPhone())
-                                            .replace("${fromEmail}", solicitud.getFromEmail());
+                                            .replace("${fromAddress}",
+                                                    solicitud.getFromAddress() != null ? solicitud.getFromAddress()
+                                                            : "")
+                                            .replace("${date}", solicitud.getDate() != null ? solicitud.getDate() : "")
+                                            .replace("${fromName}",
+                                                    solicitud.getFromName() != null ? solicitud.getFromName() : "")
+                                            .replace("${fromIdentification}",
+                                                    solicitud.getFromIdentification() != null
+                                                            ? solicitud.getFromIdentification()
+                                                            : "")
+                                            .replace("${projectLocation}",
+                                                    solicitud.getProjectLocation() != null
+                                                            ? solicitud.getProjectLocation()
+                                                            : "")
+                                            .replace("${projectAddress}",
+                                                    solicitud.getProjectAddress() != null
+                                                            ? solicitud.getProjectAddress()
+                                                            : "")
+                                            .replace("${userName}",
+                                                    solicitud.getUserName() != null ? solicitud.getUserName() : "")
+                                            .replace("${userIdentification}",
+                                                    solicitud.getUserIdentification() != null
+                                                            ? solicitud.getUserIdentification()
+                                                            : "")
+                                            .replace("${userLocation}",
+                                                    solicitud.getUserLocation() != null ? solicitud.getUserLocation()
+                                                            : "")
+                                            .replace("${fromName2}",
+                                                    solicitud.getFromName2() != null ? solicitud.getFromName2() : "")
+                                            .replace("${fromIdentification2}",
+                                                    solicitud.getFromIdentification2() != null
+                                                            ? solicitud.getFromIdentification2()
+                                                            : "")
+                                            .replace("${fromPhone}",
+                                                    solicitud.getFromPhone() != null ? solicitud.getFromPhone() : "")
+                                            .replace("${fromEmail}",
+                                                    solicitud.getFromEmail() != null ? solicitud.getFromEmail() : "");
 
                                     // Limpiar todos los runs existentes
                                     for (int i = runs.size() - 1; i >= 0; i--) {

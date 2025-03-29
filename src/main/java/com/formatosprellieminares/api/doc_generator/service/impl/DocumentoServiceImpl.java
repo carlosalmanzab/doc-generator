@@ -50,18 +50,48 @@ public class DocumentoServiceImpl implements DocumentoService {
     public ByteArrayOutputStream generarDocumentos(SolicitudDocumentos solicitud) {
         logger.info("Iniciando generación de {} documentos", solicitud.getDocumentos().size());
         ByteArrayOutputStream zipOutputStream = new ByteArrayOutputStream();
+        Map<String, Integer> contadorArchivos = new HashMap<>();
 
         try (ZipOutputStream zos = new ZipOutputStream(zipOutputStream)) {
             for (DocumentoRequest docRequest : solicitud.getDocumentos()) {
+                if (docRequest == null) {
+                    logger.warn("Se encontró una solicitud de documento nula");
+                    continue;
+                }
+
+                if (docRequest.getTipoDocumento() == null || docRequest.getTipoDocumento().trim().isEmpty()) {
+                    logger.warn("Se encontró una solicitud de documento sin tipo");
+                    continue;
+                }
+
+                if (docRequest.getDatos() == null) {
+                    logger.warn("Se encontró una solicitud de documento sin datos para el tipo: {}",
+                            docRequest.getTipoDocumento());
+                    continue;
+                }
+
                 DocumentoGenerator generator = generadores.get(docRequest.getTipoDocumento());
                 if (generator != null) {
                     logger.debug("Generando documento de tipo: {}", docRequest.getTipoDocumento());
                     byte[] documentoBytes = generator.generarDocumento(docRequest.getDatos());
-                    ZipEntry entry = new ZipEntry(generator.getNombreArchivo());
+
+                    // Obtener el nombre base del archivo
+                    String nombreBase = generator.getNombreArchivo().replace(".docx", "");
+
+                    // Incrementar el contador para este tipo de documento
+                    int contador = contadorArchivos.getOrDefault(nombreBase, 0) + 1;
+                    contadorArchivos.put(nombreBase, contador);
+
+                    // Crear el nombre del archivo con el contador si es necesario
+                    String nombreArchivo = contador > 1 ? String.format("%s-%d.docx", nombreBase, contador)
+                            : String.format("%s.docx", nombreBase);
+
+                    logger.debug("Guardando documento como: {}", nombreArchivo);
+                    ZipEntry entry = new ZipEntry(nombreArchivo);
                     zos.putNextEntry(entry);
                     zos.write(documentoBytes);
                     zos.closeEntry();
-                    logger.debug("Documento {} generado exitosamente", generator.getNombreArchivo());
+                    logger.debug("Documento {} generado exitosamente", nombreArchivo);
                 } else {
                     logger.warn("Tipo de documento no soportado: {}", docRequest.getTipoDocumento());
                 }
