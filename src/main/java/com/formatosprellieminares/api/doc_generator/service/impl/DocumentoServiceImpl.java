@@ -64,7 +64,7 @@ public class DocumentoServiceImpl implements DocumentoService {
                     continue;
                 }
 
-                if (docRequest.getDatos() == null) {
+                if (docRequest.getBody() == null) {
                     logger.warn("Se encontró una solicitud de documento sin datos para el tipo: {}",
                             docRequest.getTipoDocumento());
                     continue;
@@ -73,7 +73,7 @@ public class DocumentoServiceImpl implements DocumentoService {
                 DocumentoGenerator generator = generadores.get(docRequest.getTipoDocumento());
                 if (generator != null) {
                     logger.debug("Generando documento de tipo: {}", docRequest.getTipoDocumento());
-                    byte[] documentoBytes = generator.generarDocumento(docRequest.getDatos());
+                    byte[] documentoBytes = generator.generarDocumento(docRequest.getBody());
 
                     // Obtener el nombre base del archivo
                     String nombreBase = generator.getNombreArchivo().replace(".docx", "");
@@ -137,7 +137,7 @@ public class DocumentoServiceImpl implements DocumentoService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
             logger.debug("Generando documento con el generador: {}", generator.getClass().getSimpleName());
-            byte[] documentoBytes = generator.generarDocumento(request.getDatos());
+            byte[] documentoBytes = generator.generarDocumento(request.getBody());
             outputStream.write(documentoBytes);
             logger.info("Documento generado exitosamente");
         } catch (Exception e) {

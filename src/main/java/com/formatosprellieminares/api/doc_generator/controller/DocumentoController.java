@@ -97,7 +97,7 @@ public class DocumentoController {
             if (request == null) {
                 request = new DocumentoRequest();
             }
-            if (request.getDatos() == null) {
+            if (request.getBody() == null) {
                 throw new RuntimeException("Los datos del documento no pueden ser nulos");
             }
             request.setTipoDocumento("SOLICITUD_CODIGOS_SPARD");
@@ -139,7 +139,7 @@ public class DocumentoController {
             if (request == null) {
                 request = new DocumentoRequest();
             }
-            if (request.getDatos() == null) {
+            if (request.getBody() == null) {
                 throw new RuntimeException("Los datos del documento no pueden ser nulos");
             }
             request.setTipoDocumento("AUTORIZACION_TRAMITES");
@@ -181,7 +181,7 @@ public class DocumentoController {
             if (request == null) {
                 request = new DocumentoRequest();
             }
-            if (request.getDatos() == null) {
+            if (request.getBody() == null) {
                 throw new RuntimeException("Los datos del documento no pueden ser nulos");
             }
             request.setTipoDocumento("AUTORIZACION_CONEXION");
@@ -223,7 +223,7 @@ public class DocumentoController {
             if (request == null) {
                 request = new DocumentoRequest();
             }
-            if (request.getDatos() == null) {
+            if (request.getBody() == null) {
                 throw new RuntimeException("Los datos del documento no pueden ser nulos");
             }
             request.setTipoDocumento("NO_HAY_PERMISO_LINEAS_CARRETERA");
