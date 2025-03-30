@@ -39,7 +39,7 @@ public class DocumentoControllerTest {
     void setUp() throws IOException {
         documentoRequest = new DocumentoRequest();
         documentoRequest.setTipoDocumento("SOLICITUD_CODIGOS_SPARD");
-        documentoRequest.setDatos(new Object());
+        documentoRequest.setBody(new Object());
 
         List<DocumentoRequest> documentos = Arrays.asList(documentoRequest);
         solicitudDocumentos = new SolicitudDocumentos();

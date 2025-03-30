@@ -243,4 +243,33 @@ public class DocumentoController {
             throw e;
         }
     }
+
+    @PostMapping("/declaracion236")
+    public ResponseEntity<byte[]> generarDeclaracion236(@RequestBody(required = false) DocumentoRequest request) {
+        logger.info("Iniciando generación de declaración 236");
+        try {
+            logger.debug("Request recibido: {}", request);
+            if (request == null) {
+                request = new DocumentoRequest();
+            }
+            if (request.getBody() == null) {
+                throw new RuntimeException("Los datos del documento no pueden ser nulos");
+            }
+            request.setTipoDocumento("DECLARACION_236");
+            logger.debug("Tipo de documento establecido: {}", request.getTipoDocumento());
+            ByteArrayOutputStream outputStream = documentoService.generarDocumentoIndividual(request);
+            logger.debug("Declaración 236 generada exitosamente");
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "DECLARACION-236.docx");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(outputStream.toByteArray());
+        } catch (Exception e) {
+            logger.error("Error al generar la declaración 236", e);
+            throw e;
+        }
+    }
 }

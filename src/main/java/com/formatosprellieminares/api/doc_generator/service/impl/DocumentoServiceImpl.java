@@ -35,6 +35,7 @@ public class DocumentoServiceImpl implements DocumentoService {
         this.generadores.put("AUTORIZACION_TRAMITES", new AutorizacionTramitesGenerator());
         this.generadores.put("AUTORIZACION_CONEXION", new AutorizacionConexionGenerator());
         this.generadores.put("NO_HAY_PERMISO_LINEAS_CARRETERA", new NoHayPermisoLineasCarreteraGenerator());
+        this.generadores.put("DECLARACION_236", new Declaracion236Generator());
         logger.info("Generadores de documentos inicializados");
     }
 
