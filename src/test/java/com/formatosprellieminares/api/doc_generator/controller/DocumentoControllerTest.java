@@ -1,9 +1,11 @@
 package com.formatosprellieminares.api.doc_generator.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -12,100 +14,138 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.formatosprellieminares.api.doc_generator.dto.DocumentoRequest;
 import com.formatosprellieminares.api.doc_generator.dto.SolicitudDocumentos;
+import com.formatosprellieminares.api.doc_generator.dto.example.ExampleRequest;
 import com.formatosprellieminares.api.doc_generator.service.DocumentoService;
 
-@ExtendWith(MockitoExtension.class)
-public class DocumentoControllerTest {
+@SpringBootTest
+class DocumentoControllerTest {
 
-    @Mock
-    private DocumentoService documentoService;
+        private MockMvc mockMvc;
 
-    @InjectMocks
-    private DocumentoController documentoController;
+        @Mock
+        private DocumentoService documentoService;
 
-    private DocumentoRequest documentoRequest;
-    private SolicitudDocumentos solicitudDocumentos;
-    private ByteArrayOutputStream mockOutputStream;
+        @InjectMocks
+        private DocumentoController documentoController;
 
-    @BeforeEach
-    void setUp() throws IOException {
-        documentoRequest = new DocumentoRequest();
-        documentoRequest.setTipoDocumento("SOLICITUD_CODIGOS_SPARD");
-        documentoRequest.setBody(new Object());
+        @InjectMocks
+        private GlobalExceptionHandler globalExceptionHandler;
 
-        List<DocumentoRequest> documentos = Arrays.asList(documentoRequest);
-        solicitudDocumentos = new SolicitudDocumentos();
-        solicitudDocumentos.setDocumentos(documentos);
+        private ObjectMapper objectMapper = new ObjectMapper();
 
-        mockOutputStream = new ByteArrayOutputStream();
-        mockOutputStream.write("test".getBytes());
-    }
+        private DocumentoRequest documentoRequest;
+        private SolicitudDocumentos solicitudDocumentos;
+        private ByteArrayOutputStream mockOutputStream;
 
-    @Test
-    void generarDocumentos_DeberiaRetornarZip() {
-        when(documentoService.generarDocumentos(any(SolicitudDocumentos.class))).thenReturn(mockOutputStream);
+        @BeforeEach
+        void setUp() throws IOException {
+                // Configurar MockMvc con el manejador de excepciones
+                ExceptionHandlerExceptionResolver exceptionResolver = new ExceptionHandlerExceptionResolver();
+                exceptionResolver.afterPropertiesSet();
 
-        ResponseEntity<byte[]> response = documentoController.generarDocumentos(solicitudDocumentos);
+                mockMvc = MockMvcBuilders.standaloneSetup(documentoController)
+                                .setControllerAdvice(globalExceptionHandler)
+                                .build();
 
-        assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals("test", new String(response.getBody()));
-    }
+                documentoRequest = new DocumentoRequest();
+                documentoRequest.setTipoDocumento("SOLICITUD_CODIGOS_SPARD");
+                documentoRequest.setBody(new Object());
 
-    @Test
-    void generarSolicitudCodigosSPARD_DeberiaRetornarDocumento() {
-        when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class))).thenReturn(mockOutputStream);
+                List<DocumentoRequest> documentos = Arrays.asList(documentoRequest);
+                solicitudDocumentos = new SolicitudDocumentos();
+                solicitudDocumentos.setDocumentos(documentos);
 
-        ResponseEntity<byte[]> response = documentoController.generarSolicitudCodigosSPARD(documentoRequest);
+                mockOutputStream = new ByteArrayOutputStream();
+                mockOutputStream.write("test".getBytes());
+        }
 
-        assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals("test", new String(response.getBody()));
-    }
+        @Test
+        void testGenerarSolicitudCodigosSPARD() throws Exception {
+                when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class)))
+                                .thenReturn(mockOutputStream);
 
-    @Test
-    void generarAutorizacionTramites_DeberiaRetornarDocumento() {
-        when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class))).thenReturn(mockOutputStream);
+                mockMvc.perform(post("/api/documentos/solicitud-codigos-spard")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(ExampleRequest.SOLICITUD_CODIGOS_SPARD))
+                                .andExpect(status().isOk())
+                                .andExpect(content().bytes(mockOutputStream.toByteArray()))
+                                .andExpect(header().string("Content-Disposition",
+                                                "form-data; name=\"attachment\"; filename=\"SOLICITUD_CODIGOS_SPARD.docx\""));
+        }
 
-        ResponseEntity<byte[]> response = documentoController.generarAutorizacionTramites(documentoRequest);
+        @Test
+        void testGenerarAutorizacionTramites() throws Exception {
+                when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class)))
+                                .thenReturn(mockOutputStream);
 
-        assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals("test", new String(response.getBody()));
-    }
+                mockMvc.perform(post("/api/documentos/autorizacion-tramites")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(ExampleRequest.AUTORIZACION_TRAMITES))
+                                .andExpect(status().isOk())
+                                .andExpect(content().bytes(mockOutputStream.toByteArray()))
+                                .andExpect(header().string("Content-Disposition",
+                                                "form-data; name=\"attachment\"; filename=\"AUTORIZACION_TRAMITES.docx\""));
+        }
 
-    @Test
-    void generarAutorizacionConexion_DeberiaRetornarDocumento() {
-        when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class))).thenReturn(mockOutputStream);
+        @Test
+        void testGenerarAutorizacionConexion() throws Exception {
+                when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class)))
+                                .thenReturn(mockOutputStream);
 
-        ResponseEntity<byte[]> response = documentoController.generarAutorizacionConexion(documentoRequest);
+                mockMvc.perform(post("/api/documentos/autorizacion-conexion")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(ExampleRequest.AUTORIZACION_CONEXION))
+                                .andExpect(status().isOk())
+                                .andExpect(content().bytes(mockOutputStream.toByteArray()))
+                                .andExpect(header().string("Content-Disposition",
+                                                "form-data; name=\"attachment\"; filename=\"AUTORIZACION_CONEXION.docx\""));
+        }
 
-        assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals("test", new String(response.getBody()));
-    }
+        @Test
+        void testGenerarNoHayPermisoLineasCarretera() throws Exception {
+                when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class)))
+                                .thenReturn(mockOutputStream);
 
-    @Test
-    void generarNoHayPermisoLineasCarretera_DeberiaRetornarDocumento() {
-        when(documentoService.generarDocumentoIndividual(any(DocumentoRequest.class))).thenReturn(mockOutputStream);
+                mockMvc.perform(post("/api/documentos/no-hay-permiso-lineas-carretera")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(ExampleRequest.NO_HAY_PERMISO_LINEAS_CARRETERA))
+                                .andExpect(status().isOk())
+                                .andExpect(content().bytes(mockOutputStream.toByteArray()))
+                                .andExpect(header().string("Content-Disposition",
+                                                "form-data; name=\"attachment\"; filename=\"NO_HAY_PERMISO_LINEAS_CARRETERA.docx\""));
+        }
 
-        ResponseEntity<byte[]> response = documentoController.generarNoHayPermisoLineasCarretera(documentoRequest);
+        @Test
+        void testGenerarMultiplesDocumentos() throws Exception {
+                when(documentoService.generarDocumentos(any(SolicitudDocumentos.class))).thenReturn(mockOutputStream);
 
-        assertNotNull(response);
-        assertEquals(200, response.getStatusCodeValue());
-        assertNotNull(response.getBody());
-        assertEquals("test", new String(response.getBody()));
-    }
+                mockMvc.perform(post("/api/documentos/generar")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(ExampleRequest.MULTIPLE_DOCUMENTOS))
+                                .andExpect(status().isOk())
+                                .andExpect(content().bytes(mockOutputStream.toByteArray()))
+                                .andExpect(header().string("Content-Disposition",
+                                                "form-data; name=\"attachment\"; filename=\"documentos.zip\""));
+        }
+
+        @Test
+        void testRequestInvalido() throws Exception {
+                // Esta prueba ahora espera un estado 500 debido a que RuntimeException es
+                // manejada por GlobalExceptionHandler
+                mockMvc.perform(post("/api/documentos/solicitud-codigos-spard")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("{\"body\": null}"))
+                                .andExpect(status().isInternalServerError());
+        }
 }

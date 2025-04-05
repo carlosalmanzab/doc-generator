@@ -15,6 +15,7 @@ public class AutorizacionTramites {
     private String fromLocation;
     private String toName;
     private String toIdentification;
+    private String toLocation;
     private String projectName;
     private String projectLocation;
     private String projectAddress;
